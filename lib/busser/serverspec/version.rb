@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 #
-# Author:: HIGUCHI Daisuke (VDR dai) (<dai@debian.org>)
+# Author:: HIGUCHI Daisuke (<d-higuchi@creationline.com>)
 #
-# Copyright (C) 2013, HIGUCHI Daisuke (VDR dai)
+# Copyright (C) 2013, HIGUCHI Daisuke
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +21,6 @@ module Busser
   module Serverspec
 
     # Version string for the Serverspec Busser runner plugin
-    VERSION = "0.1.0.dev"
+    VERSION = "0.1.0"
   end
 end

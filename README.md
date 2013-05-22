@@ -8,7 +8,17 @@ Please read the Busser [plugin usage][plugin_usage] page for more details.
 
 ## <a name="usage"></a> Usage
 
-**TODO:** Write documentation explaining the structure/format of testing files.
+Please put test files into *cookbook*/test/integration/*suites*/serverspec/
+
+```*cookbook*
+`-- test
+    `-- integration
+        `-- default
+            `-- serverspec
+                |-- localhost
+                |   `-- httpd_spec.rb
+                `-- spec_helper.rb
+```
 
 ## <a name="development"></a> Development
 
@@ -27,15 +37,15 @@ example:
 
 ## <a name="authors"></a> Authors
 
-Created and maintained by [HIGUCHI Daisuke (VDR dai)][author] (<dai@debian.org>)
+Created and maintained by [HIGUCHI Daisuke][author] (<d-higuchi@creationline.com>)
 
 ## <a name="license"></a> License
 
 Apache 2.0 (see [LICENSE][license])
 
 
-[author]:           https://github.com/enter-github-user
-[issues]:           https://github.com/enter-github-user/busser-serverspec/issues
-[license]:          https://github.com/enter-github-user/busser-serverspec/blob/master/LICENSE
-[repo]:             https://github.com/enter-github-user/busser-serverspec
+[author]:           https://github.com/cl-lab-k
+[issues]:           https://github.com/cl-lab-k/busser-serverspec/issues
+[license]:          https://github.com/cl-lab-k/busser-serverspec/blob/master/LICENSE
+[repo]:             https://github.com/cl-lab-k/busser-serverspec
 [plugin_usage]:     http://docs.kitchen-ci.org/busser/plugin-usage

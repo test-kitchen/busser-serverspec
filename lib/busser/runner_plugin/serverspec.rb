@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 #
-# Author:: HIGUCHI Daisuke (VDR dai) (<dai@debian.org>)
+# Author:: HIGUCHI Daisuke (<d-higuchi@creationline.com>)
 #
-# Copyright (C) 2013, HIGUCHI Daisuke (VDR dai)
+# Copyright (C) 2013, HIGUCHI Daisuke
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,11 +20,16 @@ require 'busser/runner_plugin'
 
 # A Busser runner plugin for Serverspec.
 #
-# @author HIGUCHI Daisuke (VDR dai) <dai@debian.org>
+# @author HIGUCHI Daisuke <d-higuchi@creationline.com>
 #
 class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
+  postinstall do
+    install_gem("serverspec", "< 0.5")
+  end
 
   def test
-    # your implementation here
+    runner = File.join(File.dirname(__FILE__), %w{.. serverspec runner.rb})
+
+    run_ruby_script!("#{runner} #{suite_path('serverspec').to_s}")
   end
 end

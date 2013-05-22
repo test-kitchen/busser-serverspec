@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
 #
-# Author:: HIGUCHI Daisuke (VDR dai) (<dai@debian.org>)
+# Author:: HIGUCHI Daisuke (<d-higuchi@creationline.com>)
 #
-# Copyright (C) 2013, HIGUCHI Daisuke (VDR dai)
+# Copyright (C) 2013, HIGUCHI Daisuke
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,17 +17,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'rake/testtask'
-
-abort "usage: #{File.basename($0)} <test_base_path>" if ARGV.first.nil?
+require 'rake'
+require 'rspec/core/rake_task'
+require 'rbconfig'
 
 base_path = File.expand_path(ARGV.shift)
-test_files = ["#{base_path}/**/*_spec.rb", "#{base_path}/**/test_*.rb"]
 
-Rake::TestTask.new(:test) do |t|
-  t.libs = []
-  t.test_files = FileList[*test_files]
-  t.verbose = true
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_path = RbConfig::CONFIG['bindir'] + '/rspec'
+  t.ruby_opts = [ "-I#{base_path}" ]
+  t.pattern = "#{base_path}/**/*_spec.rb"
 end
-
-Rake::Task["test"].invoke
+Rake::Task["spec"].invoke
