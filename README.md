@@ -8,9 +8,9 @@ Please read the Busser [plugin usage][plugin_usage] page for more details.
 
 ## <a name="usage"></a> Usage
 
-Please put test files into *cookbook*/test/integration/*suites*/serverspec/
+Please put test files into [COOKBOOK]/test/integration/[SUITES]/serverspec/
 
-```*cookbook*
+```cookbook
 `-- test
     `-- integration
         `-- default
