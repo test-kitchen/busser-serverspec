@@ -25,7 +25,7 @@ base_path = File.expand_path(ARGV.shift)
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   rspec_path = RbConfig::CONFIG['bindir'] + '/rspec'
-  if FileTest.executable?( rspec_path )
+  if FileTest.executable? rspec_path
     t.rspec_path = rspec_path
   end
   t.ruby_opts = "-I#{base_path}"
