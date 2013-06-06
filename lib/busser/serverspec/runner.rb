@@ -25,7 +25,7 @@ base_path = File.expand_path(ARGV.shift)
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_path = RbConfig::CONFIG['bindir'] + '/rspec'
-  t.ruby_opts = [ "-I#{base_path}" ]
+  t.ruby_opts = "-I#{base_path}"
   t.pattern = "#{base_path}/**/*_spec.rb"
 end
 Rake::Task["spec"].invoke
