@@ -12,7 +12,17 @@ Feature: Test command
   Scenario: A passing test suite
     Given a file in suite "serverspec" named "localhost/default_spec.rb" with:
     """
-    describe command( 'echo "hello"' ) do
+    require 'serverspec'
+    require 'pathname'
+    include Serverspec::Helper::Exec
+    include Serverspec::Helper::DetectOS
+    RSpec.configure do |c|
+      c.before :all do
+        c.os = backend(Serverspec::Commands::Base).check_os
+      end
+    end
+
+    describe command( "echo 'hello'" ) do
       it { should return_exit_status 0 }
       it { should return_stdout 'hello' }
     end
@@ -20,16 +30,23 @@ Feature: Test command
     When I run `busser test serverspec`
     Then the output should contain:
     """
-    .
-
-    Finished in \S+ seconds
-    1 examples, 0 failures
+    2 examples, 0 failures
     """
     And the exit status should be 0
 
   Scenario: A failing test suite
     Given a file in suite "serverspec" named "localhost/default_spec.rb" with:
     """
+    require 'serverspec'
+    require 'pathname'
+    include Serverspec::Helper::Exec
+    include Serverspec::Helper::DetectOS
+    RSpec.configure do |c|
+      c.before :all do
+        c.os = backend(Serverspec::Commands::Base).check_os
+      end
+    end
+
     describe command( 'which uhoh-whatzit-called' ) do
       it { should return_exit_status 0 }
     end
@@ -37,9 +54,6 @@ Feature: Test command
     When I run `busser test serverspec`
     Then the output should contain:
     """
-    .
-
-    Finished in \S+ seconds
-    0 examples, 1 failures
+    1 example, 1 failure
     """
     And the exit status should not be 0
