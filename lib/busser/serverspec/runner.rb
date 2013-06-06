@@ -24,7 +24,10 @@ require 'rbconfig'
 base_path = File.expand_path(ARGV.shift)
 
 RSpec::Core::RakeTask.new(:spec) do |t|
-  t.rspec_path = RbConfig::CONFIG['bindir'] + '/rspec'
+  rspec_path = RbConfig::CONFIG['bindir'] + '/rspec'
+  if FileTest.executable?( rspec_path )
+    t.rspec_path = rspec_path
+  end
   t.ruby_opts = "-I#{base_path}"
   t.pattern = "#{base_path}/**/*_spec.rb"
 end
