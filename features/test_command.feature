@@ -5,27 +5,41 @@ Feature: Test command
 
   Background:
     Given a test BUSSER_ROOT directory named "busser-serverspec-test"
+    And a sandboxed GEM_HOME directory named "busser-serverspec-gem-home"
     When I successfully run `busser plugin install busser-serverspec --force-postinstall`
     Given a suite directory named "serverspec"
 
   Scenario: A passing test suite
-    Given a file in suite "serverspec" named "<YOUR_FILE>" with:
+    Given a file in suite "serverspec" named "localhost/default_spec.rb" with:
     """
-    TEST FILE CONTENT
-
-    A good test might be a simple passing statement
+    describe command( 'echo "hello"' ) do
+      it { should return_exit_status 0 }
+      it { should return_stdout 'hello' }
+    end
     """
     When I run `busser test serverspec`
-    Then I should verify some output for the serverspec plugin
+    Then the output should contain:
+    """
+    .
+
+    Finished in \S+ seconds
+    1 examples, 0 failures
+    """
     And the exit status should be 0
 
   Scenario: A failing test suite
-    Given a file in suite "serverspec" named "<YOUR_FILE>" with:
+    Given a file in suite "serverspec" named "localhost/default_spec.rb" with:
     """
-    TEST FILE CONTENT
-
-    A good test might be a failing test case, raised exception, etc.
+    describe command( 'which uhoh-whatzit-called' ) do
+      it { should return_exit_status 0 }
+    end
     """
     When I run `busser test serverspec`
-    Then I should verify some output for the serverspec plugin
+    Then the output should contain:
+    """
+    .
+
+    Finished in \S+ seconds
+    0 examples, 1 failures
+    """
     And the exit status should not be 0
