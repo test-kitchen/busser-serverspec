@@ -1,5 +1,7 @@
 # <a name="title"></a> Busser::RunnerPlugin::Serverspec
 
+[![Build Status](https://secure.travis-ci.org/cl-lab-k/busser-serverspec.png?branch=master)](https://travis-ci.org/cl-lab-k/busser-serverspec)
+
 A Busser runner plugin for Serverspec
 
 ## <a name="installation"></a> Installation and Setup
