@@ -1,6 +1,6 @@
 # <a name="title"></a> Busser::RunnerPlugin::Serverspec
 
-[![Build Status](https://secure.travis-ci.org/cl-lab-k/busser-serverspec.png?branch=master)](https://travis-ci.org/cl-lab-k/busser-serverspec)
+[![Gem Version](https://badge.fury.io/rb/busser-serverspec.png)](http://rubygems.org/gems/busser-serverspec) [![Build Status](https://secure.travis-ci.org/cl-lab-k/busser-serverspec.png?branch=master)](https://travis-ci.org/cl-lab-k/busser-serverspec) [![Dependency Status](https://gemnasium.com/cl-lab-k/busser-serverspec.png)](https://gemnasium.com/cl-lab-k/busser-serverspec) [![Code Climate](https://codeclimate.com/github/cl-lab-k/busser-serverspec.png)](https://codeclimate.com/github/cl-lab-k/busser-serverspec)
 
 A Busser runner plugin for Serverspec
 
