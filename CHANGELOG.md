@@ -1,3 +1,7 @@
+## 0.2.0 / 2013-06-18
+
+* issue #1: do not print full backtrace if serverspec test failure.
+
 ## 0.1.1 / 2013-06-06
 
 * add cucumber test and fix related things
