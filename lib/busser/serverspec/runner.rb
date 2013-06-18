@@ -33,6 +33,6 @@ RSpec::Core::RakeTask.new(:spec) do |t|
 end
 begin
   Rake::Task["spec"].invoke
-rescue RuntimeError => e
-  exit e.status
+rescue RuntimeError
+  exit 1
 end
