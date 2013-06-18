@@ -31,4 +31,8 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.ruby_opts = "-I#{base_path}"
   t.pattern = "#{base_path}/**/*_spec.rb"
 end
-Rake::Task["spec"].invoke
+begin
+  Rake::Task["spec"].invoke
+rescue RuntimeError => e
+  exit e.status
+end
