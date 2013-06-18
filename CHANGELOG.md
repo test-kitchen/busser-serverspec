@@ -1,3 +1,7 @@
+## 0.2.1 / 2013-06-18
+
+* fix silly exit value.
+
 ## 0.2.0 / 2013-06-18
 
 * issue #1: do not print full backtrace if serverspec test failure.
