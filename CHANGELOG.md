@@ -1,3 +1,7 @@
+## 0.2.2 / 2013-07-09
+
+* issue #2: remove dependency rspec.
+
 ## 0.2.1 / 2013-06-18
 
 * fix silly exit value.
