@@ -24,7 +24,7 @@ require 'busser/runner_plugin'
 #
 class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
   postinstall do
-    install_gem("serverspec", "~> 0.5.0")
+    install_gem("serverspec")
   end
 
   def test
