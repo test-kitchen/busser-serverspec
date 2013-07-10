@@ -1,3 +1,7 @@
+## 0.2.3 / 2013-07-10
+
+* issue #2: remove tight dependency of serverspec. thanks to rteabeault.
+
 ## 0.2.2 / 2013-07-09
 
 * issue #2: remove dependency rspec.
