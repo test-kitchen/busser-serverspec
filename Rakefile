@@ -1,8 +1,10 @@
+require 'coveralls/rake/task'
 require "bundler/gem_tasks"
 require 'cucumber/rake/task'
 require 'cane/rake_task'
 require 'tailor/rake_task'
-require 'coveralls/rake/task'
+
+Coveralls::RakeTask.new
 
 Cucumber::Rake::Task.new(:features) do |t|
   t.cucumber_opts = ['features', '-x', '--format progress']
@@ -25,8 +27,6 @@ task :stats do
   puts "\n## Test Code Stats"
   sh "countloc -r features"
 end
-
-Coveralls::RakeTask.new
 
 desc "Run all quality tasks"
 task :quality => [:cane, :tailor, :stats]

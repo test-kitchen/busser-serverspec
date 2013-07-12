@@ -30,6 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'tailor'
   spec.add_development_dependency 'countloc'
 
-  spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'coveralls'
 end
