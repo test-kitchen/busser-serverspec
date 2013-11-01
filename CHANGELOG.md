@@ -1,3 +1,8 @@
+## 0.2.4 / 2013-11-01
+
+* issue #4: Search all GEM_PATH values for `rspec` bin.
+  merge pull-req by Seth Chisamore <schisamo@opscode.com>. thanks.
+
 ## 0.2.3 / 2013-07-10
 
 * issue #2: remove tight dependency of serverspec. thanks to rteabeault.
