@@ -42,6 +42,7 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   end
 
   t.rspec_path = rspec_bin if rspec_bin
+  t.rspec_opts = ['--color', '--format documentation']
   t.ruby_opts = "-I#{base_path}"
   t.pattern = "#{base_path}/**/*_spec.rb"
 end
