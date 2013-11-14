@@ -1,3 +1,8 @@
+## 0.2.5 / 2013-11-14
+
+* issue #5: Added --color and --format documentation rspec options
+  merge pull-req by Kannan Manickam <kannan@rightscale.com>. thanks.
+
 ## 0.2.4 / 2013-11-01
 
 * issue #4: Search all GEM_PATH values for `rspec` bin.
