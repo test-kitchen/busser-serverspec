@@ -22,6 +22,10 @@ Please put test files into [COOKBOOK]/test/integration/[SUITES]/serverspec/
                 `-- spec_helper.rb
 ```
 
+### <a name="note"></a> Note
+
+Globbing pattern to match files is `"serverspec/*/*_spec.rb"`.
+
 ## <a name="development"></a> Development
 
 * Source hosted at [GitHub][repo]
