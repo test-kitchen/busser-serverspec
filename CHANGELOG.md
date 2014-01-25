@@ -1,3 +1,9 @@
+## 0.2.6 / 2014-01-25
+
+* add globbing pattern note for frequency asked test failure.
+* update links for moving to test-kitchen organization.
+* update copyright.
+
 ## 0.2.5 / 2013-11-14
 
 * issue #5: Added --color and --format documentation rspec options
