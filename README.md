@@ -51,7 +51,7 @@ Apache 2.0 (see [LICENSE][license])
 
 
 [author]:           https://github.com/cl-lab-k
-[issues]:           https://github.com/cl-lab-k/busser-serverspec/issues
-[license]:          https://github.com/cl-lab-k/busser-serverspec/blob/master/LICENSE
-[repo]:             https://github.com/cl-lab-k/busser-serverspec
+[issues]:           https://github.com/test-kitchen/busser-serverspec/issues
+[license]:          https://github.com/test-kitchen/busser-serverspec/blob/master/LICENSE
+[repo]:             https://github.com/test-kitchen/busser-serverspec
 [plugin_usage]:     http://docs.kitchen-ci.org/busser/plugin-usage
