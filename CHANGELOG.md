@@ -1,3 +1,7 @@
+## 0.2.7 / 2014-09-24
+
+* support loading Gemfile. closes #12
+
 ## 0.2.6 / 2014-01-25
 
 * add globbing pattern note for frequency asked test failure.
