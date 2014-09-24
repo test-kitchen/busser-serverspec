@@ -29,7 +29,7 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   candidate_bindirs << RbConfig::CONFIG['bindir']
   # Search all Gem paths bindirs
   candidate_bindirs << Gem.paths.path.map do |gem_path|
-    File.join(gem_path, "bin")
+    File.join(gem_path, 'bin')
   end
 
   candidate_rspec_bins = candidate_bindirs.flatten.map do |bin_dir|
@@ -47,7 +47,7 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = "#{base_path}/**/*_spec.rb"
 end
 begin
-  Rake::Task["spec"].invoke
+  Rake::Task['spec'].invoke
 rescue RuntimeError
   exit 1
 end
