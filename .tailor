@@ -1,4 +1,6 @@
 Tailor.config do |config|
   config.formatters "text"
-  config.file_set 'lib/**/*.rb'
+  config.file_set 'lib/**/*.rb' do |style|
+    style.max_line_length 100
+  end
 end
