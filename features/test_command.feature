@@ -13,18 +13,11 @@ Feature: Test command
     Given a file in suite "serverspec" named "localhost/default_spec.rb" with:
     """
     require 'serverspec'
-    require 'pathname'
-    include Serverspec::Helper::Exec
-    include Serverspec::Helper::DetectOS
-    RSpec.configure do |c|
-      c.before :all do
-        c.os = backend(Serverspec::Commands::Base).check_os
-      end
-    end
+    set :backend, :exec
 
     describe command( "echo 'hello'" ) do
-      it { should return_exit_status 0 }
-      it { should return_stdout 'hello' }
+      its(:exit_status) { should eq 0 }
+      its(:stdout) { should eq "hello\n" }
     end
     """
     When I run `busser test serverspec`
@@ -38,17 +31,10 @@ Feature: Test command
     Given a file in suite "serverspec" named "localhost/default_spec.rb" with:
     """
     require 'serverspec'
-    require 'pathname'
-    include Serverspec::Helper::Exec
-    include Serverspec::Helper::DetectOS
-    RSpec.configure do |c|
-      c.before :all do
-        c.os = backend(Serverspec::Commands::Base).check_os
-      end
-    end
+    set :backend, :exec
 
     describe command( 'which uhoh-whatzit-called' ) do
-      it { should return_exit_status 0 }
+      its(:exit_status) { should eq 0 }
     end
     """
     When I run `busser test serverspec`
