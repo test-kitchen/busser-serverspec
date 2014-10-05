@@ -1,3 +1,7 @@
+## 0.2.8 / 2014-10-05
+
+* update for serverspec v2, closes #13
+
 ## 0.2.7 / 2014-09-24
 
 * support loading Gemfile. closes #12
