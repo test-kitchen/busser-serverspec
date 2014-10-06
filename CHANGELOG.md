@@ -1,3 +1,8 @@
+## 0.4.0 / 2014-10-06
+
+* add --default-path for RSpec 3, closes #15
+* bump up version number (0.3: load Gemfile, 0.4: serverspec v2).
+
 ## 0.2.8 / 2014-10-05
 
 * update for serverspec v2, closes #13
