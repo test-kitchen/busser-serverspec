@@ -17,14 +17,29 @@ Please put test files into [COOKBOOK]/test/integration/[SUITES]/serverspec/
     `-- integration
         `-- default
             `-- serverspec
+                |-- Gemfile
                 |-- localhost
                 |   `-- httpd_spec.rb
                 `-- spec_helper.rb
 ```
 
-### <a name="note"></a> Note
+`Gemfile` is optional. You can use it to install gems you need.
+
+## <a name="note"></a> Note
+
+### <a name="spec"></a> File Matching
 
 Globbing pattern to match files is `"serverspec/*/*_spec.rb"`.
+You need to use `"_spec.rb"` (underscore), not `"-spec.rb"` (minus).
+
+### <a name="serverspec1"></a> Using Serverspec v1
+
+If you have to use Serverspec v1, you should use <a href="https://github.com/test-kitchen/busser-rspec">busser-rspec</a>. Example Gemfile in busser-rspec:
+
+```Gemfile
+source 'https://rubygems.org'
+gem 'serverspec', '< 2.0'
+```
 
 ## <a name="development"></a> Development
 
