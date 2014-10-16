@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'aruba'
 
   spec.add_development_dependency 'cane'
+  spec.add_development_dependency 'log_switch', '~> 0.3.0'
   spec.add_development_dependency 'tailor'
   spec.add_development_dependency 'countloc'
 
