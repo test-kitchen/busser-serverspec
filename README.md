@@ -23,7 +23,7 @@ Please put test files into [COOKBOOK]/test/integration/[SUITES]/serverspec/
                 `-- spec_helper.rb
 ```
 
-`Gemfile` is optional. You can use it to install gems you need.
+`Gemfile` is optional. You can specify installing Serverspec version and install gems you need.
 
 ## <a name="note"></a> Note
 
@@ -34,7 +34,7 @@ You need to use `"_spec.rb"` (underscore), not `"-spec.rb"` (minus).
 
 ### <a name="serverspec1"></a> Using Serverspec v1
 
-If you have to use Serverspec v1, you should use <a href="https://github.com/test-kitchen/busser-rspec">busser-rspec</a>. Example Gemfile in busser-rspec:
+If you have to use Serverspec v1, you can use Gemfile to specify version. Example Gemfile:
 
 ```Gemfile
 source 'https://rubygems.org'
