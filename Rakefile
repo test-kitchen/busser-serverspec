@@ -29,6 +29,6 @@ task :stats do
 end
 
 desc "Run all quality tasks"
-task :quality => [:cane, :tailor, :stats]
+task :quality => [:cane, :stats]
 
 task :default => [:test, :quality, 'coveralls:push']
