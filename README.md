@@ -32,9 +32,9 @@ Please put test files into [COOKBOOK]/test/integration/[SUITES]/serverspec/
 Globbing pattern to match files is `"serverspec/*/*_spec.rb"`.
 You need to use `"_spec.rb"` (underscore), not `"-spec.rb"` (minus).
 
-### <a name="serverspec1"></a> Using Serverspec v1
+### <a name="serverspec1"></a> Specify Serverspec version
 
-If you have to use Serverspec v1, you can use Gemfile to specify version. Example Gemfile:
+If you have to specify Serverspec version, you can use Gemfile. Example Gemfile:
 
 ```Gemfile
 source 'https://rubygems.org'

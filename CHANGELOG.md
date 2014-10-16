@@ -1,3 +1,7 @@
+## 0.5.2 / 2014-10-16
+
+* reset gems db
+
 ## 0.5.1 / 2014-10-16
 
 * move Gemfile process from postinstall to test.
