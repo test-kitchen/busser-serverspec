@@ -1,3 +1,9 @@
+## 0.5.0 / 2014-10-16
+
+* enable to specify serverspec version in Gemfile, closes #16
+* add 'log_switch', '~> 0.3.0', ref: turboladen/tailor#160
+* drop ruby 1.9.2 test, because mime-types 2.4.2 does not support ruby 1.9.2.
+
 ## 0.4.0 / 2014-10-06
 
 * add --default-path for RSpec 3, closes #15
