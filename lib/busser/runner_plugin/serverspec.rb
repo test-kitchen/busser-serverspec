@@ -43,6 +43,7 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
   end
 
   def install_serverspec
+    Gem::Specification.reset
     if Array(Gem::Specification.find_all_by_name('serverspec')).size == 0
       spec = install_gem('serverspec')
       banner "serverspec installed (version #{spec.version})"
