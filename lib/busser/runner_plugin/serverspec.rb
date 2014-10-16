@@ -25,13 +25,16 @@ require 'rubygems/dependency_installer'
 #
 class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
   postinstall do
+    install_gem('bundler')
+  end
+
+  def test
     # Referred from busser-shindo
     gemfile_path = File.join(suite_path, 'serverspec', 'Gemfile')
     if File.exists?(gemfile_path)
       # Bundle install local completes quickly if the gems are already found
       # locally it fails if it needs to talk to the internet. The || below is
       # the fallback to the internet-enabled version. It's a speed optimization.
-      install_gem('bundler')
       banner('Bundle Installing..')
       ENV['PATH'] = [ENV['PATH'], Gem.bindir].join(':')
       bundle_exec = "bundle install --gemfile #{gemfile_path}"
@@ -42,11 +45,8 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
       spec = install_gem('serverspec')
       banner "serverspec installed (version #{spec.version})"
     end
-  end
 
-  def test
     runner = File.join(File.dirname(__FILE__), %w{.. serverspec runner.rb})
-
     run_ruby_script!("#{runner} #{suite_path('serverspec').to_s}")
   end
 end
