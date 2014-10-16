@@ -1,3 +1,7 @@
+## 0.5.1 / 2014-10-16
+
+* move Gemfile process from postinstall to test.
+
 ## 0.5.0 / 2014-10-16
 
 * enable to specify serverspec version in Gemfile, closes #16
