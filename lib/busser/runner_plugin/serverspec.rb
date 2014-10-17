@@ -28,6 +28,16 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
     install_gem('bundler')
   end
 
+  def test
+    run_bundle_install
+    install_serverspec
+
+    runner = File.join(File.dirname(__FILE__), %w{.. serverspec runner.rb})
+    run_ruby_script!("#{runner} #{suite_path('serverspec').to_s}")
+  end
+
+  private
+
   def run_bundle_install
     # Referred from busser-shindo
     gemfile_path = File.join(suite_path, 'serverspec', 'Gemfile')
@@ -45,16 +55,9 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
   def install_serverspec
     Gem::Specification.reset
     if Array(Gem::Specification.find_all_by_name('serverspec')).size == 0
+      banner('Installing Serverspec..')
       spec = install_gem('serverspec')
       banner "serverspec installed (version #{spec.version})"
     end
-  end
-
-  def test
-    run_bundle_install
-    install_serverspec
-
-    runner = File.join(File.dirname(__FILE__), %w{.. serverspec runner.rb})
-    run_ruby_script!("#{runner} #{suite_path('serverspec').to_s}")
   end
 end
