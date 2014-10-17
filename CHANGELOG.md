@@ -1,3 +1,7 @@
+## 0.5.3 / 2014-10-17
+
+* make private working methods, closes #18
+
 ## 0.5.2 / 2014-10-16
 
 * reset gems db
