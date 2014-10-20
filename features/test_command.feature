@@ -27,6 +27,24 @@ Feature: Test command
     """
     And the exit status should be 0
 
+  Scenario: A passing sudo test suite
+    Given a file in suite "serverspec" named "localhost/default_spec.rb" with:
+    """
+    require 'serverspec'
+    set :backend, :exec
+
+    describe command( "sudo echo 'hello'" ) do
+      its(:exit_status) { should eq 0 }
+      its(:stdout) { should eq "hello\n" }
+    end
+    """
+    When I run `busser test serverspec`
+    Then the output should contain:
+    """
+    2 examples, 0 failures
+    """
+    And the exit status should be 0
+
   Scenario: A failing test suite
     Given a file in suite "serverspec" named "localhost/default_spec.rb" with:
     """
