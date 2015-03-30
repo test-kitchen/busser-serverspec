@@ -1,3 +1,8 @@
+## 0.5.4 / 2015-03-30
+
+* add the config bindir as well.
+  merge pull-req by Noah Kantrowitz <noah@coderanger.net>. thanks.
+
 ## 0.5.3 / 2014-10-17
 
 * make private working methods, closes #18
