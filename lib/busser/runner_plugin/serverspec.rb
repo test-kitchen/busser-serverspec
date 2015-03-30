@@ -46,7 +46,7 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
       # locally it fails if it needs to talk to the internet. The || below is
       # the fallback to the internet-enabled version. It's a speed optimization.
       banner('Bundle Installing..')
-      ENV['PATH'] = [ENV['PATH'], Gem.bindir].join(':')
+      ENV['PATH'] = [ENV['PATH'], Gem.bindir, Config::CONFIG['bindir']].join(':')
       bundle_exec = "bundle install --gemfile #{gemfile_path}"
       run("#{bundle_exec} --local || #{bundle_exec}")
     end
