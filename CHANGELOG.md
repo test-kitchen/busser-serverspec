@@ -1,3 +1,8 @@
+## 0.5.5 / 2015-04-02
+
+* use File::PATH_SEPARATOR to join ENV PATH. closes #24
+  suggested by Jacob McCann <jmccann.git@gmail.com>, thanks.
+
 ## 0.5.4 / 2015-03-30
 
 * add the config bindir as well.
