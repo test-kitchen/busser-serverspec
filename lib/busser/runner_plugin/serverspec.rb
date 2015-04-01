@@ -46,10 +46,18 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
       # locally it fails if it needs to talk to the internet. The || below is
       # the fallback to the internet-enabled version. It's a speed optimization.
       banner('Bundle Installing..')
-      ENV['PATH'] = [ENV['PATH'], Gem.bindir, Config::CONFIG['bindir']].join(':')
+      ENV['PATH'] = [ENV['PATH'], Gem.bindir, Config::CONFIG['bindir']].join(env_join_char)
       bundle_exec = "bundle install --gemfile #{gemfile_path}"
       run("#{bundle_exec} --local || #{bundle_exec}")
     end
+  end
+
+  #
+  # Character to use when joining PATH env
+  #
+  def env_join_char
+    return ';' if RUBY_PLATFORM =~ /mswin|mingw32|windows/
+    ':'
   end
 
   def install_serverspec
