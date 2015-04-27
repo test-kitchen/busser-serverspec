@@ -47,7 +47,8 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
       # the fallback to the internet-enabled version. It's a speed optimization.
       banner('Bundle Installing..')
       ENV['PATH'] = [ENV['PATH'], Gem.bindir, Config::CONFIG['bindir']].join(File::PATH_SEPARATOR)
-      bundle_exec = "bundle install --gemfile #{gemfile_path}"
+      bundle_exec = "#{File.join(Config::CONFIG['bindir'], 'ruby')} " +
+        "#{File.join(Gem.bindir, 'bundle')} install --gemfile #{gemfile_path}"
       run("#{bundle_exec} --local || #{bundle_exec}")
     end
   end
