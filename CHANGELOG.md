@@ -1,3 +1,8 @@
+## 0.5.6 / 2015-04-27
+
+* Run bundle with explicit path to ruby bin, closes #27
+  merge pull-req by Simon Detheridge <simon@widgit.com>, thanks.
+
 ## 0.5.5 / 2015-04-02
 
 * use File::PATH_SEPARATOR to join ENV PATH. closes #24
