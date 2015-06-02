@@ -1,3 +1,8 @@
+## 0.5.7 / 2015-06-01
+
+* use RbConfig instead of obsolete and deprecated Config, closes #29
+  suggested by Jörg Herzinger <joerg.herzinger@oiml.at>, thanks.
+
 ## 0.5.6 / 2015-04-27
 
 * Run bundle with explicit path to ruby bin, closes #27
