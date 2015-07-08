@@ -41,6 +41,13 @@ source 'https://rubygems.org'
 gem 'serverspec', '< 2.0'
 ```
 
+### <a name="backend"></a> Serverspec backend
+
+It runs on a target server for testing after ssh log in it.
+So you need to specify `set :backend, :exec` not `set :backend, :ssh` (Serverspec v2).
+If you use Serverspec v1, you need to specify `include SpecInfra::Helper::Exec` not `include SpecInfra::Helper::Ssh`.
+
+
 ## <a name="development"></a> Development
 
 * Source hosted at [GitHub][repo]
