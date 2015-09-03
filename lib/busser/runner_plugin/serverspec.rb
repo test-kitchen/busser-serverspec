@@ -33,7 +33,10 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
     install_serverspec
 
     runner = File.join(File.dirname(__FILE__), %w{.. serverspec runner.rb})
-    run_ruby_script!("#{runner} #{suite_path('serverspec').to_s}")
+    bundle_exec = "#{File.join(RbConfig::CONFIG['bindir'], 'ruby')} " +
+      "#{File.join(Gem.bindir, 'bundle')} exec " +
+      "#{runner}"
+    run("#{bundle_exec}")
   end
 
   private
