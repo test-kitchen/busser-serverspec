@@ -21,6 +21,6 @@ module Busser
   module Serverspec
 
     # Version string for the Serverspec Busser runner plugin
-    VERSION = '0.5.7'
+    VERSION = '0.6.0'
   end
 end
