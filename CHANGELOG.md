@@ -1,4 +1,9 @@
-## 0.6.0 / 2016-01-18, 0.5.8 / 2016-01-22
+## 0.5.9 2016-01-22
+
+* Fix frozen string issue when checking Ruby version
+  merge pull-req by Joe Friedl <jfriedl@digitalocean.com>, thanks.
+
+## 0.5.8 / 2016-01-22, 0.6.0 / 2016-01-18 (yanked 2016-02-22)
 
 * Install net-ssh < 2.10 for ruby < 2.0.
   merge pull-req by Bill Ruddock <bill.ruddock@gmail.com>, thanks.
