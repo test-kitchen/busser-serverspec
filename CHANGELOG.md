@@ -1,3 +1,8 @@
+## 0.6.0 / 2016-01-18, 0.5.8 / 2016-01-22
+
+* Install net-ssh < 2.10 for ruby < 2.0.
+  merge pull-req by Bill Ruddock <bill.ruddock@gmail.com>, thanks.
+
 ## 0.5.7 / 2015-06-01
 
 * use RbConfig instead of obsolete and deprecated Config, closes #29
