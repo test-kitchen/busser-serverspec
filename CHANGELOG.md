@@ -1,3 +1,13 @@
+# You should use Kitchen::Verifier::Shell + Serverspec
+
+## 0.5.10 2016-08-12
+
+* use container-based test at travis-ci.
+* Make rake and rspec/core runtime deps
+  merge pull-req by John Keiser <john@johnkeiser.com>, thanks.
+* Pin versions of aruba and cucumber
+  inspired by test-kitchen/busser-cucumber@cd3e6b3 by Peter Gallagher, thanks.
+
 ## 0.5.9 2016-01-22
 
 * Fix frozen string issue when checking Ruby version
