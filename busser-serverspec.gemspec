@@ -19,7 +19,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'busser'
-  spec.add_dependency 'rake'
+  if RUBY_VERSION < '2.0'
+    spec.add_dependency 'rake', '< 12.3.0'
+  else
+    spec.add_dependency 'rake'
+  end
   spec.add_dependency 'rspec-core'
 
   spec.add_development_dependency 'serverspec'
