@@ -57,8 +57,12 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
     Gem::Specification.reset
     if Array(Gem::Specification.find_all_by_name('serverspec')).size == 0
       if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.0')
+        banner('Start installing gems for ruby version less than 2.0')
         banner('Installing net-ssh < 2.10')
         install_gem('net-ssh', '< 2.10')
+        banner('Installing net-telnet 0.1.1')
+        install_gem('net-telnet', '~> 0.1.1')
+        banner('Gems for ruby version less than 2.0 are installed')
       end
       banner('Installing Serverspec..')
       spec = install_gem('serverspec')

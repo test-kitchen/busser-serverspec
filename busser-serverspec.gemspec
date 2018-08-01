@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
 
   if RUBY_VERSION < '2.0'
     spec.add_development_dependency 'net-ssh', '< 2.10'
+    spec.add_development_dependency 'net-telnet', '~> 0.1.1'
     spec.add_development_dependency 'tins', '< 1.7'
   end
 end
