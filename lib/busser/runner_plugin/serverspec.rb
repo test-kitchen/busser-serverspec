@@ -25,7 +25,11 @@ require 'rubygems/dependency_installer'
 #
 class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
   postinstall do
-    install_gem('bundler')
+    if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.3')
+      install_gem('bundler', '~> 1.17.0')
+    else
+      install_gem('bundler')
+    end
   end
 
   def test
