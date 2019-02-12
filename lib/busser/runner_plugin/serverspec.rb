@@ -56,9 +56,8 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
   def install_serverspec
     Gem::Specification.reset
     if Array(Gem::Specification.find_all_by_name('serverspec')).size == 0
-      if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.0')
-        banner('Installing net-ssh < 2.10')
-        install_gem('net-ssh', '< 2.10')
+      if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.3')
+        raise "Ruby < 2.3 is EOLed and no longer supported"
       end
       banner('Installing Serverspec..')
       spec = install_gem('serverspec')
