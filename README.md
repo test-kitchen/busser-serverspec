@@ -4,6 +4,10 @@
 
 A Busser runner plugin for Serverspec
 
+## Status
+
+This software project is no longer under active development as it has no active maintainers. The software may continue to work for some or all use cases, but issues filed in GitHub will most likely not be triaged. If a new maintainer is interested in working on this project please come chat with us in #test-kitchen on Chef Community Slack.
+
 ## <a name="installation"></a> Installation and Setup
 
 Please read the Busser [plugin usage][plugin_usage] page for more details.
