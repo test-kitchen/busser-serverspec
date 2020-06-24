@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'serverspec'
 
   spec.add_development_dependency 'aruba', '0.6.1'
-  spec.add_development_dependency 'cucumber', '1.3.18'
+  spec.add_development_dependency 'cucumber', '4.0.1'
 
   spec.add_development_dependency 'cane'
   spec.add_development_dependency 'log_switch', '~> 0.3.0'
