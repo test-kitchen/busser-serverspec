@@ -17,10 +17,7 @@
 # limitations under the License.
 
 module Busser
-
   module Serverspec
-
-    # Version string for the Serverspec Busser runner plugin
-    VERSION = '0.6.0'
+    VERSION = '0.6.1'
   end
 end
