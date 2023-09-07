@@ -10,7 +10,13 @@ This software project is no longer under active development as it has no active 
 
 ## <a name="installation"></a> Installation and Setup
 
-Please read the Busser [plugin usage][plugin_usage] page for more details.
+Put this into your `kitchen.yml`:
+```
+verifier:
+  name: busser
+```
+
+You may also take a look at the Busser [plugin usage][plugin_usage] page.
 
 ## <a name="usage"></a> Usage
 
@@ -80,4 +86,4 @@ Apache 2.0 (see [LICENSE][license])
 [issues]:           https://github.com/test-kitchen/busser-serverspec/issues
 [license]:          https://github.com/test-kitchen/busser-serverspec/blob/master/LICENSE
 [repo]:             https://github.com/test-kitchen/busser-serverspec
-[plugin_usage]:     http://docs.kitchen-ci.org/busser/plugin-usage
+[plugin_usage]:     https://kitchen.ci/docs/verifiers/serverspec/
