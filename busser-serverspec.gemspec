@@ -24,14 +24,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rspec-core'
 
   spec.add_development_dependency 'serverspec'
-
-  spec.add_development_dependency 'aruba', '0.7.4'
-  spec.add_development_dependency 'cucumber', '1.3.18'
-
+  spec.add_development_dependency 'aruba', '0.6.1'
+  spec.add_development_dependency 'cucumber', '4.1.0'
   spec.add_development_dependency 'cane'
   spec.add_development_dependency 'log_switch', '~> 0.3.0'
   spec.add_development_dependency 'tailor'
   spec.add_development_dependency 'countloc'
-
   spec.add_development_dependency 'coveralls'
 end
