@@ -1,4 +1,4 @@
-# <a name="notice"></a> Notice
+# Notice
 
 You should use [Kitchen::Verifier::Shell](https://github.com/higanworks/kitchen-verifier-shell) + [Serverspec](http://serverspec.org/) instead of Busser::RunnerPlugin::Serverspec.
 
