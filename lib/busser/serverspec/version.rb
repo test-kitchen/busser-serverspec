@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 #
 # Author:: HIGUCHI Daisuke (<d-higuchi@creationline.com>)
 #
@@ -18,6 +17,6 @@
 
 module Busser
   module Serverspec
-    VERSION = '0.6.1'
+    VERSION = "0.6.1".freeze
   end
 end

@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.executables   = []
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
-  spec.required_ruby_version = '>= 2.3.0'
+  spec.required_ruby_version = ">= 3.1"
 
   spec.add_dependency 'busser'
   spec.add_dependency 'rake'
@@ -26,9 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'serverspec'
   spec.add_development_dependency 'aruba', '0.6.1'
   spec.add_development_dependency 'cucumber', '4.1.0'
-  spec.add_development_dependency 'cane'
   spec.add_development_dependency 'log_switch', '~> 0.3.0'
-  spec.add_development_dependency 'tailor'
   spec.add_development_dependency 'countloc'
   spec.add_development_dependency 'coveralls'
 end
