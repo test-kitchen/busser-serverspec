@@ -20,26 +20,12 @@ require "rake"
 require "rspec/core/rake_task"
 require "rbconfig" unless defined?(RbConfig)
 
+require_relative "rspec_binary"
+
 base_path = File.expand_path(ARGV.shift)
 
 RSpec::Core::RakeTask.new(:spec) do |t|
-  candidate_bindirs = []
-  # Current Ruby's default bindir
-  candidate_bindirs << RbConfig::CONFIG["bindir"]
-  # Search all Gem paths bindirs
-  candidate_bindirs << Gem.paths.path.map do |gem_path|
-    File.join(gem_path, "bin")
-  end
-
-  candidate_rspec_bins = candidate_bindirs.flatten.map do |bin_dir|
-    File.join(bin_dir, "rspec")
-  end
-
-  rspec_bin = candidate_rspec_bins.find do |candidate_rspec_bin|
-    FileTest.exist?(candidate_rspec_bin) &&
-      FileTest.executable?(candidate_rspec_bin)
-  end
-
+  rspec_bin = Busser::Serverspec::RspecBinary.find
   t.rspec_path = rspec_bin if rspec_bin
   t.rspec_opts = [
     "--color",
