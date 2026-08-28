@@ -15,3 +15,7 @@ group :test do
   gem "rake", ">= 13.4"
   gem "serverspec", ">= 2.43"
 end
+
+group :development do
+  gem "yard", ">= 0.9.37"
+end

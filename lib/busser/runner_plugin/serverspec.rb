@@ -23,10 +23,17 @@ require "rubygems/dependency_installer"
 # @author HIGUCHI Daisuke <d-higuchi@creationline.com>
 #
 class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
+  # Installs bundler onto the machine under test. Serverspec itself is left
+  # until #test, so a suite that pins its own version in a Gemfile is not
+  # made to download a second copy first.
   postinstall do
     install_gem("bundler")
   end
 
+  # Runs the suite's specs, installing the suite's own gems and serverspec
+  # first if they are not already present.
+  #
+  # @return [void]
   def test
     run_bundle_install
     install_serverspec
@@ -37,6 +44,10 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
 
   private
 
+  # Installs the suite's own gems, if it ships a Gemfile. This is how a suite
+  # pins a particular serverspec version.
+  #
+  # @return [nil] if the suite has no Gemfile
   def run_bundle_install
     # Referred from busser-shindo
     gemfile_path = File.join(suite_path, "serverspec", "Gemfile")
@@ -52,6 +63,10 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
     end
   end
 
+  # Installs serverspec unless some version is already available, so a version
+  # pinned by the suite's own Gemfile is left alone.
+  #
+  # @return [void]
   def install_serverspec
     Gem::Specification.reset
     if Array(Gem::Specification.find_all_by_name("serverspec")).size == 0
