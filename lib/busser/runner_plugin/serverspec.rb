@@ -15,6 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "rbconfig" unless defined?(RbConfig)
+require "shellwords" unless defined?(Shellwords)
+
 require "busser/runner_plugin"
 require "rubygems/dependency_installer"
 
@@ -26,6 +29,38 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
   # Installs bundler onto the machine under test. Serverspec itself is left
   # until #test, so a suite that pins its own version in a Gemfile is not
   # made to download a second copy first.
+  # Builds the command that runs the suite's specs.
+  #
+  # Both paths are quoted: the suite path is rooted at BUSSER_ROOT, which the
+  # caller chooses, so an unquoted path containing a space would be split by
+  # the shell.
+  #
+  # @param runner [String, Pathname] path to the runner script
+  # @param suite [String, Pathname] the suite directory holding the specs
+  # @return [String] the command to run
+  def self.runner_command(runner, suite)
+    "#{Shellwords.escape(runner.to_s)} #{Shellwords.escape(suite.to_s)}"
+  end
+
+  # Builds the bundle install command for a suite's own Gemfile, which is how a
+  # suite pins its serverspec version.
+  #
+  # bundler is invoked through the Ruby running Busser rather than whatever
+  # `bundle` is on PATH, since on a machine with several Rubies those differ and
+  # the suite's gems would land where the runner cannot see them.
+  #
+  # @param gemfile [String, Pathname] path to the suite's Gemfile
+  # @return [String] the command to run
+  def self.bundle_install_command(gemfile)
+    bundle = [
+      Shellwords.escape(File.join(RbConfig::CONFIG["bindir"], "ruby")),
+      Shellwords.escape(File.join(Gem.bindir, "bundle")),
+      "install", "--gemfile", Shellwords.escape(gemfile.to_s)
+    ].join(" ")
+
+    "#{bundle} --local || #{bundle}"
+  end
+
   postinstall do
     install_gem("bundler")
   end
@@ -39,7 +74,7 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
     install_serverspec
 
     runner = File.join(File.dirname(__FILE__), %w{.. serverspec runner.rb})
-    run_ruby_script!("#{runner} #{suite_path("serverspec")}")
+    run_ruby_script!(self.class.runner_command(runner, suite_path("serverspec")))
   end
 
   private
@@ -57,9 +92,7 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
       # the fallback to the internet-enabled version. It's a speed optimization.
       banner("Bundle Installing..")
       ENV["PATH"] = [ENV["PATH"], Gem.bindir, RbConfig::CONFIG["bindir"]].join(File::PATH_SEPARATOR)
-      bundle_exec = "#{File.join(RbConfig::CONFIG["bindir"], "ruby")} " +
-        "#{File.join(Gem.bindir, "bundle")} install --gemfile #{gemfile_path}"
-      run("#{bundle_exec} --local || #{bundle_exec}")
+      run(self.class.bundle_install_command(gemfile_path))
     end
   end
 
