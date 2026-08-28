@@ -4,6 +4,3 @@ require:
 
 AllCops:
   TargetRubyVersion: 3.2
-  Exclude:
-    - "vendor/**/*"
-    - "spec/**/*"
