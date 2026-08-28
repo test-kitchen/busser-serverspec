@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# -*- encoding: utf-8 -*-
 #
 # Author:: HIGUCHI Daisuke (<d-higuchi@creationline.com>)
 #
@@ -17,23 +16,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'rake'
-require 'rspec/core/rake_task'
-require 'rbconfig'
+require "rake"
+require "rspec/core/rake_task"
+require "rbconfig" unless defined?(RbConfig)
 
 base_path = File.expand_path(ARGV.shift)
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   candidate_bindirs = []
   # Current Ruby's default bindir
-  candidate_bindirs << RbConfig::CONFIG['bindir']
+  candidate_bindirs << RbConfig::CONFIG["bindir"]
   # Search all Gem paths bindirs
   candidate_bindirs << Gem.paths.path.map do |gem_path|
-    File.join(gem_path, 'bin')
+    File.join(gem_path, "bin")
   end
 
   candidate_rspec_bins = candidate_bindirs.flatten.map do |bin_dir|
-    File.join(bin_dir, 'rspec')
+    File.join(bin_dir, "rspec")
   end
 
   rspec_bin = candidate_rspec_bins.find do |candidate_rspec_bin|
@@ -43,15 +42,15 @@ RSpec::Core::RakeTask.new(:spec) do |t|
 
   t.rspec_path = rspec_bin if rspec_bin
   t.rspec_opts = [
-    '--color',
-    '--format documentation',
+    "--color",
+    "--format documentation",
     "--default-path #{base_path}",
   ]
   t.ruby_opts = "-I#{base_path}"
   t.pattern = "#{base_path}/**/*_spec.rb"
 end
 begin
-  Rake::Task['spec'].invoke
+  Rake::Task["spec"].invoke
 rescue RuntimeError
   exit 1
 end

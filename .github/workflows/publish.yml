@@ -1,0 +1,67 @@
+---
+name: "Release"
+
+"on":
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # tag the release and commit the version bump
+      pull-requests: write   # open and update the release pull request
+      packages: write        # push the gem to GitHub Packages
+    steps:
+      # Opens and maintains a release pull request. Merging that pull request
+      # is what actually cuts a release, so every step below is skipped until
+      # release_created is set.
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7  # v5.0.0
+        id: release
+        with:
+          token: ${{ secrets.PORTER_GITHUB_TOKEN }}
+
+      - name: Checkout code
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      # These two steps are handed publishing credentials, so they are pinned
+      # to a commit rather than a branch. A floating ref would let whoever
+      # controls that branch run code with a token that can push this gem.
+      - name: Publish to GitHub Packages
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actionshub/publish-gem-to-github@86eb0ce1ced1072298bf68776a32a5c9703ad9aa  # v1.0.13
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Publish to RubyGems
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actionshub/publish-gem-to-rubygems@f9126f7a2d36a4fd31a13e78fde5fbdcc4b7b251  # v2.0.6
+        with:
+          token: ${{ secrets.RUBYGEMS_API_KEY }}
+
+      # actionshub/publish-gem-to-rubygems logs a rejected push and still exits
+      # 0, so a release that never reached RubyGems shows up as a green job.
+      # Ask RubyGems directly instead of trusting the step. The v2 endpoint is
+      # 404 until the exact version is indexed, so -f turns "not there" into a
+      # non-zero exit rather than a substring match on `gem list` output.
+      - name: Verify the release reached RubyGems
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          set -euo pipefail
+          name="$(basename "$(ls ./*.gemspec)" .gemspec)"
+          for _ in $(seq 1 12); do
+            if curl -fsS -o /dev/null "https://rubygems.org/api/v2/rubygems/${name}/versions/${VERSION}.json"; then
+              echo "${name} ${VERSION} is on RubyGems"
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::${name} ${VERSION} never reached RubyGems. A permissions failure in the push step above does not fail that step -- read its log."
+          exit 1

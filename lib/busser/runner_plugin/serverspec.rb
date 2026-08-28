@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 #
 # Author:: HIGUCHI Daisuke (<d-higuchi@creationline.com>)
 #
@@ -16,8 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'busser/runner_plugin'
-require 'rubygems/dependency_installer'
+require "busser/runner_plugin"
+require "rubygems/dependency_installer"
 
 # A Busser runner plugin for Serverspec.
 #
@@ -25,7 +24,7 @@ require 'rubygems/dependency_installer'
 #
 class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
   postinstall do
-    install_gem('bundler')
+    install_gem("bundler")
   end
 
   def test
@@ -33,34 +32,31 @@ class Busser::RunnerPlugin::Serverspec < Busser::RunnerPlugin::Base
     install_serverspec
 
     runner = File.join(File.dirname(__FILE__), %w{.. serverspec runner.rb})
-    run_ruby_script!("#{runner} #{suite_path('serverspec').to_s}")
+    run_ruby_script!("#{runner} #{suite_path("serverspec")}")
   end
 
   private
 
   def run_bundle_install
     # Referred from busser-shindo
-    gemfile_path = File.join(suite_path, 'serverspec', 'Gemfile')
-    if File.exists?(gemfile_path)
+    gemfile_path = File.join(suite_path, "serverspec", "Gemfile")
+    if File.exist?(gemfile_path)
       # Bundle install local completes quickly if the gems are already found
       # locally it fails if it needs to talk to the internet. The || below is
       # the fallback to the internet-enabled version. It's a speed optimization.
-      banner('Bundle Installing..')
-      ENV['PATH'] = [ENV['PATH'], Gem.bindir, RbConfig::CONFIG['bindir']].join(File::PATH_SEPARATOR)
-      bundle_exec = "#{File.join(RbConfig::CONFIG['bindir'], 'ruby')} " +
-        "#{File.join(Gem.bindir, 'bundle')} install --gemfile #{gemfile_path}"
+      banner("Bundle Installing..")
+      ENV["PATH"] = [ENV["PATH"], Gem.bindir, RbConfig::CONFIG["bindir"]].join(File::PATH_SEPARATOR)
+      bundle_exec = "#{File.join(RbConfig::CONFIG["bindir"], "ruby")} " +
+        "#{File.join(Gem.bindir, "bundle")} install --gemfile #{gemfile_path}"
       run("#{bundle_exec} --local || #{bundle_exec}")
     end
   end
 
   def install_serverspec
     Gem::Specification.reset
-    if Array(Gem::Specification.find_all_by_name('serverspec')).size == 0
-      if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.3')
-        raise "Ruby < 2.3 is EOLed and no longer supported"
-      end
-      banner('Installing Serverspec..')
-      spec = install_gem('serverspec')
+    if Array(Gem::Specification.find_all_by_name("serverspec")).size == 0
+      banner("Installing Serverspec..")
+      spec = install_gem("serverspec", ">= 2.43")
       banner "serverspec installed (version #{spec.version})"
     end
   end
