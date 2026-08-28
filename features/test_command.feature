@@ -4,8 +4,10 @@ Feature: Test command
   I want my tests to run when the serverspec runner plugin is installed
 
   Background:
-    Given a test BUSSER_ROOT directory named "busser-serverspec-test"
+    Given a non bundler environment
+    And a test BUSSER_ROOT directory named "busser-serverspec-test"
     And a sandboxed GEM_HOME directory named "busser-serverspec-gem-home"
+    And this plugin is installed from the working tree
     When I successfully run `busser plugin install busser-serverspec --force-postinstall`
     Given a suite directory named "serverspec"
 
