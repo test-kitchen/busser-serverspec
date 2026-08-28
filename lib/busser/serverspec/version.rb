@@ -19,6 +19,6 @@ module Busser
   # Namespace for the Serverspec Busser runner plugin.
   module Serverspec
     # Version string for the Serverspec Busser runner plugin
-    VERSION = "0.6.3".freeze
+    VERSION = "0.7.0".freeze
   end
 end

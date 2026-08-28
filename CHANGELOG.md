@@ -1,5 +1,21 @@
 # You should use Kitchen::Verifier::Shell + Serverspec
 
+## [0.7.0](https://github.com/test-kitchen/busser-serverspec/compare/v0.6.3...v0.7.0) (2026-08-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* Ruby 3.1 and busser releases older than 0.9.0 are no longer supported.
+
+### Features
+
+* require Ruby 3.2 and busser 0.9, adopt release-please ([#76](https://github.com/test-kitchen/busser-serverspec/issues/76)) ([d3a3c59](https://github.com/test-kitchen/busser-serverspec/commit/d3a3c5906301ddbfcea4643b06d3fb93e4448d0d))
+
+
+### Bug Fixes
+
+* quote paths before handing them to a shell ([#89](https://github.com/test-kitchen/busser-serverspec/issues/89)) ([7a8869d](https://github.com/test-kitchen/busser-serverspec/commit/7a8869df6fd2b2f2e9058f6766491349eeaa8788))
+
 ## 0.5.10 2016-08-12
 
 * use container-based test at travis-ci.
