@@ -15,15 +15,13 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files`.split($/)
   spec.executables   = []
   spec.require_paths = ["lib"]
-  spec.required_ruby_version = ">= 3.1"
+  spec.required_ruby_version = ">= 3.2"
 
-  spec.add_dependency "busser"
+  spec.add_dependency "busser", ">= 0.9.0"
   spec.add_dependency "rake"
   spec.add_dependency "rspec-core"
 
   spec.add_development_dependency "serverspec"
-  spec.add_development_dependency "aruba", "0.6.1"
-  spec.add_development_dependency "cucumber", "~> 9.0"
-  spec.add_development_dependency "log_switch", "~> 0.3.0"
-  spec.add_development_dependency "coveralls"
+  spec.add_development_dependency "aruba", ">= 2.0"
+  spec.add_development_dependency "cucumber", ">= 11.1"
 end

@@ -1,0 +1,28 @@
+---
+name: "PR Title"
+
+"on":
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  conventional-title:
+    name: "Conventional commit title"
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      # Pull requests here are squash merged, so the pull request title becomes
+      # the commit subject on main. That makes the title the one place worth
+      # checking: release-please reads those subjects to decide the next
+      # version and to build the changelog.
+      #
+      # pull_request_target is used so the check also runs for pull requests
+      # from forks. No repository code is checked out in this job, so none of
+      # the usual pull_request_target risk applies.
+      - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50  # v6.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,32 @@
+---
+name: "Test"
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# The default token is granted write access to most of the repository.
+# Nothing here needs more than the checkout.
+permissions:
+  contents: read
+
+# Supersede in-flight runs for a branch. Pull requests cancel freely, but
+# pushes to main do not: every commit on main should keep a build of its own.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint-unit:
+    # Pinned to a commit rather than @main so an upstream edit cannot reach
+    # this repository's CI without a reviewed pull request. The trailing
+    # comment names the release the commit belongs to, which is what lets
+    # Renovate track the pin by version and keep both in step.
+    uses: test-kitchen/.github/.github/workflows/lint-unit.yml@95ef7803cf23aae5ee68593de5b7e0a731c1a929  # v0.4.0
+    with:
+      # This gem requires Ruby 3.2, and so do busser 0.9 and cucumber 11.
+      # Without this the shared workflow would still start a Ruby 3.1 job and
+      # bundler would refuse to resolve there.
+      ruby_versions: '["3.2", "3.3", "3.4", "4.0"]'

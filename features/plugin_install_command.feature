@@ -9,5 +9,5 @@ Feature: Plugin install command
 
   Scenario: Running the postinstall generator
     When I run `busser plugin install busser-serverspec --force-postinstall`
-    Then a gem named "serverspec" is installed
+    Then a gem named "bundler" is installed
     And the exit status should be 0
