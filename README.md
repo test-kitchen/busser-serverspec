@@ -97,6 +97,48 @@ gem "serverspec", "~> 2.43"
 
 Without one, the plugin installs Serverspec 2.43 or newer.
 
+## Using it with Test Kitchen
+
+This is how most people run it, and it needs no Busser commands of your own.
+Select the verifier in `kitchen.yml`:
+
+```yaml
+verifier:
+  name: busser
+
+suites:
+  - name: default
+```
+
+Then put your tests in a `serverspec` directory inside the suite:
+
+```text
+test/integration/default/serverspec/localhost/httpd_spec.rb
+```
+
+`kitchen verify` installs Busser and this plugin on the instance and runs them.
+The directory name is what selects this plugin -- there is nothing else to
+configure.
+
+## When nothing runs
+
+If the suite files do not match what this plugin looks for, the run prints one
+line and **exits `0`**:
+
+```text
+-----> Running serverspec test suite
+```
+
+No tests ran, and nothing said so. Work through these in order:
+
+1. **Is the directory named `serverspec`?** That name alone selects this plugin.
+   `serverspecs/`, `tests/` or anything else is not picked up.
+2. **Do the filenames match?** Only `*_spec.rb` is run, searched
+   recursively; note the underscore -- `default-spec.rb` is *not* picked up.
+3. **Is the plugin installed?** `busser plugin list` shows what is available.
+4. **Is `BUSSER_ROOT` what you think?** `busser suite path` prints where suites
+   are actually being looked for.
+
 ## Contributing
 
 Bug reports and pull requests are welcome. See
