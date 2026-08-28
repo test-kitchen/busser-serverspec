@@ -7,7 +7,9 @@
       "changelog-path": "CHANGELOG.md",
       "release-type": "ruby",
       "include-component-in-tag": false,
-      "version-file": "lib/busser/serverspec/version.rb"
+      "version-file": "lib/busser/serverspec/version.rb",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true
     }
   }
 }
