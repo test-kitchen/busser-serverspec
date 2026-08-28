@@ -1,72 +1,110 @@
-# Busser::RunnerPlugin::Serverspec
+# busser-serverspec
 
+[![Gem Version](https://badge.fury.io/rb/busser-serverspec.svg)](https://badge.fury.io/rb/busser-serverspec)
 
-A Busser runner plugin for Serverspec
+A [Busser](https://github.com/test-kitchen/busser) runner plugin that runs
+[Serverspec](https://serverspec.org) tests as integration tests.
+
+Busser installs Serverspec on the machine under test the first time a suite
+runs, then executes the suite's `serverspec` directory against it. Because the
+tests run on the machine itself, they use Serverspec's `exec` backend rather
+than SSH.
 
 ## Status
 
-This Gem has now been archived. No active maintainers have come forward in the past 5 years and the original maintainer has since pulled the plugin.
+This gem has been archived. No active maintainers have come forward in the past
+five years and the original maintainer has since pulled the plugin.
 
-We recommend moving to a maintained project for similar functionality or building and running the Gem yourself.
+We recommend moving to a maintained project for similar functionality, or
+building and running the gem yourself. In particular,
+[kitchen-verifier-shell](https://github.com/higanworks/kitchen-verifier-shell)
+with Serverspec covers the same ground and is configured directly in your
+`kitchen.yml`.
 
-## Installation and Setup
+## Requirements
 
-Put this into your `kitchen.yml`:
+Ruby 3.2 or newer, and busser 0.9.0 or newer.
+
+## Installation
+
+Select the Busser verifier in your `kitchen.yml`:
 
 ```yaml
 verifier:
   name: busser
 ```
 
-You may also look at the Busser [plugin usage][plugin_usage] page.
+Busser then installs the plugin for you when the suite runs. To install it by
+hand:
+
+```bash
+busser plugin install busser-serverspec
+```
 
 ## Usage
 
-Please put test files into [COOKBOOK]/test/integration/[SUITES]/serverspec/
+Put your specs in a subdirectory of the suite's `serverspec` directory:
 
-```cookbook
-`-- test
-    `-- integration
-        `-- default
-            `-- serverspec
-                |-- Gemfile
-                |-- localhost
-                |   `-- httpd_spec.rb
-                `-- spec_helper.rb
+```text
+test
+`-- integration
+    `-- default              # suite name
+        `-- serverspec
+            |-- Gemfile          # optional
+            |-- spec_helper.rb
+            `-- localhost
+                `-- httpd_spec.rb
 ```
 
-`Gemfile` is optional. You can specify installing Serverspec version and install the gems you need.
+Specs are collected recursively as `**/*_spec.rb`, so any depth works; the
+`localhost/` directory above is convention, not a requirement. The separator is
+an underscore — `_spec.rb`, not `-spec.rb`. The suite directory is also added to
+the load path and set as RSpec's default path, so `require "spec_helper"` works
+without a relative path.
 
-## Note
+```ruby
+require "spec_helper"
 
-### File Matching
-
-The globbing pattern to match files is `"serverspec/*/*_spec.rb"`.
-You need to use `"_spec.rb"` (underscore), not `"-spec.rb"` (minus).
-
-### Specify Serverspec version
-
-If you have to specify the Serverspec version, you can use Gemfile. Example Gemfile:
-
-```Gemfile
-source 'https://rubygems.org'
-gem 'serverspec', '< 2.0'
+describe command("echo hello") do
+  its(:exit_status) { should eq 0 }
+  its(:stdout) { should eq "hello\n" }
+end
 ```
 
-### Serverspec backend
+### Backend
 
-It runs on a target server for testing after ssh log in it.
-So you need to specify `set :backend, :exec` not `set :backend, :ssh` (Serverspec v2).
-If you use Serverspec v1, you must specify `include SpecInfra::Helper::Exec` not `include SpecInfra::Helper::Ssh`.
+The tests run on the machine under test, after Test Kitchen has logged in, so
+the `exec` backend is the right one:
 
-## Authors
+```ruby
+require "serverspec"
+set :backend, :exec
+```
 
-Created and maintained by [HIGUCHI Daisuke][author] (<d-higuchi@creationline.com>)
+Do not use `set :backend, :ssh` — that would have Serverspec connect back out
+over the network from a machine that is already the target.
+
+### Pinning Serverspec
+
+A `Gemfile` in the suite directory is `bundle install`ed before the run, which
+is how you pin a particular Serverspec version:
+
+```ruby
+source "https://rubygems.org"
+
+gem "serverspec", "~> 2.43"
+```
+
+Without one, the plugin installs Serverspec 2.43 or newer.
+
+## Contributing
+
+Bug reports and pull requests are welcome. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for how to set up the project, run the test
+suite, and format your commits.
 
 ## License
 
-Apache 2.0 (see [LICENSE][license])
+Apache License 2.0. See [LICENSE](LICENSE).
 
-[author]:           https://github.com/cl-lab-k
-[license]:          https://github.com/test-kitchen/busser-serverspec/blob/master/LICENSE
-[plugin_usage]:     https://kitchen.ci/docs/verifiers/serverspec/
+Originally created by [HIGUCHI Daisuke](https://github.com/cl-lab-k).

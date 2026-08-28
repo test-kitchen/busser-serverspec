@@ -7,7 +7,10 @@ require "busser/cucumber"
 if ENV["COVERAGE"]
   require "simplecov"
   SimpleCov.command_name "features"
-  SimpleCov.start
+  SimpleCov.start do
+    add_filter "/features/"
+    add_group "Libraries", "/lib/"
+  end
 end
 
 # aruba 2 dropped @aruba_timeout_seconds; setting it in a Before hook is a
@@ -15,13 +18,6 @@ end
 # Installing a plugin and its gems into a cold sandbox does not always fit.
 Aruba.configure do |config|
   config.exit_timeout = 120
-end
-
-After do |s|
-  # Tell Cucumber to quit after this scenario is done - if it failed.
-  # This is useful to inspect the 'tmp/aruba' directory before any other
-  # steps are executed and clear it out.
-  Cucumber.wants_to_quit = true if s.failed?
 end
 
 # The sandboxed features shell out to `busser plugin install <this plugin>`, and
