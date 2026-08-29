@@ -26,7 +26,12 @@ jobs:
         # integration, not Ruby compatibility.
         ruby: ["3.2", "4.0"]
     env:
-      BUSSER_ROOT: ${{ github.workspace }}/tmp/busser-kitchen
+      # Outside the checkout on purpose. The runners require "bundler/setup",
+      # which walks up from the suite looking for a Gemfile -- so a Busser root
+      # inside the workspace finds this project's Gemfile and tries to
+      # materialize that bundle inside the isolated gem home, which fails. A
+      # real Busser root is /opt/busser, never inside the project.
+      BUSSER_ROOT: /tmp/busser-kitchen
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
