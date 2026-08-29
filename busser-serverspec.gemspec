@@ -31,4 +31,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "busser", ">= 0.9.0"
   spec.add_dependency "rake"
   spec.add_dependency "rspec-core"
+  # serverspec reaches net-ssh through specinfra, which requires logger.
+  # logger stopped being a default gem in Ruby 4.0, so without this the
+  # suite dies loading spec_helper there.
+  spec.add_dependency "logger"
 end

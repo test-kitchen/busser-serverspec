@@ -1,0 +1,50 @@
+---
+name: "Test Kitchen"
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  kitchen:
+    name: "kitchen verify on Ruby ${{ matrix.ruby }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The ends of the supported range. The unit and feature suites already
+        # cover everything in between; this job is about the Test Kitchen
+        # integration, not Ruby compatibility.
+        ruby: ["3.2", "4.0"]
+    env:
+      BUSSER_ROOT: ${{ github.workspace }}/tmp/busser-kitchen
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      # Deliberately no bundler-cache, and nothing below runs under `bundle
+      # exec`. The verifier shells out to `gem list` to decide what to install,
+      # and bundler in the environment makes that report the bundle's gems
+      # rather than the Busser root's -- so it skips installing busser and the
+      # run dies on a path that was never created. Test Kitchen is not run from
+      # inside a project's bundle in real use either.
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b  # v1.321.0
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Install Test Kitchen
+        run: gem install test-kitchen --no-document --version "~> 4.1"
+
+      - name: Install this working tree into the Busser root
+        run: ./kitchen-preinstall.sh
+
+      - name: kitchen verify
+        run: kitchen verify
