@@ -1,0 +1,23 @@
+---
+# Runs the Serverspec runner the way Test Kitchen actually runs it -- real verifier,
+# real busser, real suite transfer -- but against the machine running the tests
+# rather than a VM or container, so it works unchanged in CI.
+driver:
+  name: exec
+
+provisioner:
+  name: dummy
+
+verifier:
+  name: busser
+  # The verifier defaults to Chef's omnibus Ruby, which is not what is running
+  # here, and to sudo, which is not needed for a path under the workspace.
+  ruby_bindir: <%= RbConfig::CONFIG["bindir"] %>
+  sudo: false
+  root_path: <%= ENV.fetch("BUSSER_ROOT", "/tmp/busser-kitchen") %>
+
+platforms:
+  - name: local
+
+suites:
+  - name: default
