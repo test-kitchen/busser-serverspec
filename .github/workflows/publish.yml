@@ -40,7 +40,7 @@ jobs:
 
       - name: Publish to RubyGems
         if: ${{ steps.release.outputs.release_created }}
-        uses: actionshub/publish-gem-to-rubygems@f9126f7a2d36a4fd31a13e78fde5fbdcc4b7b251  # v2.0.6
+        uses: actionshub/publish-gem-to-rubygems@61a4aec8be2a2a82dca251f67c2f1e0f8943198b  # v2.0.7
         with:
           token: ${{ secrets.RUBYGEMS_API_KEY }}
 
